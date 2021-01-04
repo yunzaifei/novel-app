@@ -39,26 +39,38 @@ import 'react-native-gesture-handler';
 
 官网：[https://github.com/oblador/react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 
-- 安装
-
 ```
 yarn add react-native-vector-icons
+```
+
+### styled-components
+
+官网：[https://styled-components.com/docs/basics](https://styled-components.com/docs/basics)
+
+```
+yarn add styled-components
+```
+
+在'react-native'中引用方式如下
+
+```
+import styled from 'styled-components/native'
 ```
 
 ## 项目配置
 
 ### 自定义路径别名(typescript)
 
--- 编辑您的文件`tsconfig.json`
+1. 编辑您的文件`tsconfig.json`
 
 ```
     "target": "esnext",
-+     "baseUrl": ".",
-+     "paths": {
-+       "*": ["src/*"],
-+       "tests": ["tests/*"],
-+       "@components/*": ["src/components/*"],
-+     },
+     "baseUrl": ".",
+     "paths": {
+       "*": ["src/*"],
+       "tests": ["tests/*"],
+       "@components/*": ["src/components/*"],
+     },
     }
 ```
 
@@ -73,17 +85,17 @@ yarn add -D babel-plugin-module-resolver
 ```
 {
   plugins: [
-+    [
-+       'module-resolver',
-+       {
-+         root: ['./src'],
-+         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
-+         alias: {
-+           "tests": ["./tests/"],
-+           "@components": "./src/components",
-+         }
-+       }
-+     ]
+    [
+       'module-resolver',
+       {
+         root: ['./src'],
+         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+         alias: {
+           "tests": ["./tests/"],
+           "@components": "./src/components",
+         }
+       }
+     ]
   ]
 }
 ```
