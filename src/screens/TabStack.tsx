@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Route } from '@react-navigation/native';
 import {
   BottomTabBarOptions,
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Icon } from '@ant-design/react-native';
+import { IconNames } from '@ant-design/react-native/lib/icon';
 import ShelfScreen from 'screens/Shelf/Home';
 import StoreScreen from 'screens/Store/Home';
 import MineScreen from 'screens/Mine/Home';
@@ -18,23 +19,26 @@ const screenOptions: (props: {
   route: Route<string, object | undefined>;
   navigation: any;
 }) => BottomTabNavigationOptions = ({ route }) => ({
-  tabBarIcon: ({ focused, size, color }) => {
-    let iconName = '';
+  tabBarIcon: ({ size, color }) => {
+    let iconName: IconNames = 'home';
     switch (route.name) {
       case routers.ShelfHome: {
-        iconName = focused ? 'book' : 'book-outline';
+        // iconName = focused ? 'library' : 'library-outline';
+        iconName = 'book';
         break;
       }
       case routers.StoreHome: {
-        iconName = focused ? 'library' : 'library-outline';
+        // iconName = focused ? 'library' : 'library-outline';
+        iconName = 'database';
         break;
       }
       case routers.MineHome: {
-        iconName = focused ? 'person' : 'person-outline';
+        // iconName = focused ? 'person' : 'person-outline';
+        iconName = 'user';
         break;
       }
     }
-    return <Ionicons name={iconName} size={size} color={color} />;
+    return <Icon name={iconName} size={size} color={color} />;
   },
 });
 

@@ -6,9 +6,8 @@
  */
 import React, { FC, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { ActivityIndicator, WhiteSpace } from '@ant-design/react-native';
+import { ActivityIndicator, WhiteSpace, Icon } from '@ant-design/react-native';
 import { Rating } from 'react-native-ratings';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 // config
 import { IMAGE_URL } from 'config';
@@ -161,12 +160,12 @@ const BookInfo: FC<NavRouteProps> = ({ navigation, route }) => {
           <CardView>
             <TitleText>目录</TitleText>
             <ChapterView onPress={() => navigation.navigate(routers.BookChapter, params)}>
-              <Ionicons name="menu" size={25} color={theme.color_text_caption} />
+              <Icon name="menu" size={25} />
               <ChapterInfo>
                 <ChapterText>最近更新：{new Date(updated).toLocaleString()}</ChapterText>
                 <ChapterText>{lastChapter}</ChapterText>
               </ChapterInfo>
-              <Ionicons name="chevron-forward" size={25} color={theme.color_text_caption} />
+              <Icon name="right" size={25} />
             </ChapterView>
           </CardView>
         </ScrollView>
