@@ -1,15 +1,15 @@
-import React, {FC, memo, useCallback, useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {ActivityIndicator, WhiteSpace} from '@ant-design/react-native';
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator, WhiteSpace } from '@ant-design/react-native';
 import styled from 'styled-components/native';
 // config
-import {IMAGE_URL} from 'config';
+import { IMAGE_URL } from 'config';
 // service
-import {getRankingService} from 'services/Store';
+import { getRankingService } from 'services/Store';
 // styles
 import theme from 'styles/theme';
-import {routers} from 'config/enum';
+import { routers } from 'config/enum';
 
 const BookView = styled.TouchableOpacity`
   padding: 5px 10px;
@@ -57,7 +57,7 @@ const IntroText = styled(GrayText).attrs({
 interface Props {
   id: string;
 }
-const Books: FC<Props> = ({id}) => {
+const Books: FC<Props> = ({ id }) => {
   console.log('id', id);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const Books: FC<Props> = ({id}) => {
         .then((res) => {
           console.log('res', res);
           const {
-            ranking: {books: resBooks = []},
+            ranking: { books: resBooks = [] },
           } = res;
           setBooks(resBooks);
         })
@@ -85,22 +85,11 @@ const Books: FC<Props> = ({id}) => {
   }, [getRanking]);
 
   console.log('books', books);
-  const renderItem = ({item}: any) => {
-    const {
-      cover,
-      title,
-      author,
-      majorCate,
-      minorCate,
-      shortIntro,
-      retentionRatio,
-    } = item;
+  const renderItem = ({ item }: any) => {
+    const { cover, title, author, majorCate, minorCate, shortIntro, retentionRatio } = item;
     return (
-      <BookView
-        onPress={() =>
-          navigation.navigate(routers.BookInfo, {id: item._id, title})
-        }>
-        <BookCover source={{uri: `${IMAGE_URL}${cover}`}} />
+      <BookView onPress={() => navigation.navigate(routers.BookInfo, { id: item._id, title })}>
+        <BookCover source={{ uri: `${IMAGE_URL}${cover}` }} />
         <BookInfo>
           <TitleView>
             <TitleText>{title}</TitleText>

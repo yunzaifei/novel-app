@@ -4,7 +4,7 @@
  * @LastEditTime: 2021-01-08 14:43:47
  * @Description: 通用类接口定义
  */
-import {NavigationProp, Route} from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 
 export interface NavProps {
   navigation: NavigationProp<Record<string, object | undefined>, string>;

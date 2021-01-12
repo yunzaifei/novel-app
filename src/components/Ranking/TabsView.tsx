@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Tabs} from '@ant-design/react-native';
-import {TabData} from '@ant-design/react-native/lib/tabs/PropsType';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Tabs } from '@ant-design/react-native';
+import { TabData } from '@ant-design/react-native/lib/tabs/PropsType';
 // config
-import {RANKING_TYPE} from 'config/enum';
+import { RANKING_TYPE } from 'config/enum';
 // service
-import {getAllRankingService} from 'services/Store';
+import { getAllRankingService } from 'services/Store';
 // components
 import ItemView from './TabsItem/ItemView';
 
@@ -46,7 +46,7 @@ const TabsView = () => {
 
   return (
     <Tabs tabs={tabs}>
-      {tabs.map(({key}) => (
+      {tabs.map(({ key }) => (
         <ItemView
           key={key}
           data={rankings ? rankings[key as RankingKey] : []}

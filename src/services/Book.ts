@@ -13,3 +13,10 @@ import httpApi from 'services/fetch';
 export function getBookInfoService(bookid: string) {
   return httpApi.get(`/book/${bookid}`);
 }
+/**
+ * 书籍章节
+ * @param {string} bookid 书籍id
+ */
+export function getBookChaptersService(bookid: string) {
+  return httpApi.get(`/mix-atoc/${bookid}?view=chapters`);
+}

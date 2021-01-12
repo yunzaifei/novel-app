@@ -4,7 +4,7 @@
  * @LastEditTime: 2020-12-31 11:43:07
  * @Description: 全局配置
  */
-declare const global: {HermesInternal: null | {}};
+declare const global: { HermesInternal: null | {} };
 
 /**
  * api域名

@@ -4,7 +4,7 @@
  * @LastEditTime: 2020-12-31 17:19:47
  * @Description: fetch封装
  */
-import {BASE_URL} from 'config/index';
+import { BASE_URL } from 'config/index';
 
 const headers = {
   Accept: 'application/json',

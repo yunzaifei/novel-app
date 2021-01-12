@@ -1,7 +1,7 @@
-import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
-import {SegmentedControl} from '@ant-design/react-native';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { SegmentedControl } from '@ant-design/react-native';
 import styled from 'styled-components/native';
-import {RowView} from 'styles/component';
+import { RowView } from 'styles/component';
 // components
 import LeftView from './LeftView';
 import BooksView from '../../Book/BooksView';
@@ -22,7 +22,7 @@ interface Props {
   refreshing: boolean;
   onRefresh: () => void;
 }
-const ItemView: FC<Props> = ({data, refreshing, onRefresh}) => {
+const ItemView: FC<Props> = ({ data, refreshing, onRefresh }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [rankingID, setRankingID] = useState('');
 
@@ -34,13 +34,9 @@ const ItemView: FC<Props> = ({data, refreshing, onRefresh}) => {
 
   const onSegmentedChange = useCallback(
     (e) => {
-      console.log(
-        'segmented',
-        e.nativeEvent.selectedSegmentIndex,
-        data[activeIndex],
-      );
+      console.log('segmented', e.nativeEvent.selectedSegmentIndex, data[activeIndex]);
       const typeIndex = e.nativeEvent.selectedSegmentIndex;
-      const {_id, monthRank, totalRank} = data[activeIndex];
+      const { _id, monthRank, totalRank } = data[activeIndex];
       switch (typeIndex) {
         case 0: {
           setRankingID(_id);

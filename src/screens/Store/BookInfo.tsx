@@ -4,19 +4,19 @@
  * @LastEditTime: 2021-01-08 14:57:30
  * @Description: 书籍详情
  */
-import React, {FC, useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
-import {ActivityIndicator, WhiteSpace} from '@ant-design/react-native';
-import {Rating} from 'react-native-ratings';
+import React, { FC, useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
+import { ActivityIndicator, WhiteSpace } from '@ant-design/react-native';
+import { Rating } from 'react-native-ratings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 // config
-import {IMAGE_URL} from 'config';
-import {routers} from 'config/enum';
+import { IMAGE_URL } from 'config';
+import { routers } from 'config/enum';
 // services
-import {getBookInfoService} from 'services/Book';
+import { getBookInfoService } from 'services/Book';
 // tyings
-import {NavRouteProps, BookInfoProp} from 'typings/types';
+import { NavRouteProps, BookInfoProp } from 'typings/types';
 // styles
 import theme from 'styles/theme';
 
@@ -32,7 +32,7 @@ const InfoView = styled.View`
   flex-direction: row;
   padding: 10px 20px;
 `;
-const BookCover = styled.Image.attrs({resizeMode: 'cover'})`
+const BookCover = styled.Image.attrs({ resizeMode: 'cover' })`
   width: 100px;
   height: 125px;
   margin-right: 30px;
@@ -98,14 +98,19 @@ const FooterPText = styled(FooterText)`
   color: ${theme.color_text_base_inverse};
 `;
 
-const BookInfo: FC<NavRouteProps> = ({navigation, route}) => {
+const BookInfo: FC<NavRouteProps> = ({ navigation, route }) => {
   const [data, setData] = useState<BookInfoProp>();
+  const [params, setParams] = useState<object>();
 
   useEffect(() => {
-    const {id, title} = route.params as any;
+    const { id, title } = route.params as any;
     console.log('id', id, 'title', title);
+    if (title) {
+      navigation.setOptions({ headerTitle: title });
+    }
     if (id) {
-      navigation.setOptions({headerTitle: title, tabBarVisible: false});
+      setParams(route.params);
+      navigation.setOptions({ headerTitle: title });
       getBookInfoService(id).then((res) => {
         console.log('res', res);
         setData(res);
@@ -126,7 +131,7 @@ const BookInfo: FC<NavRouteProps> = ({navigation, route}) => {
       title,
       author,
       isSerial,
-      rating: {score},
+      rating: { score },
       majorCate,
       minorCate,
       longIntro,
@@ -137,19 +142,14 @@ const BookInfo: FC<NavRouteProps> = ({navigation, route}) => {
       <ContainerView>
         <ScrollView>
           <InfoView>
-            <BookCover source={{uri: `${IMAGE_URL}${cover}`}} />
+            <BookCover source={{ uri: `${IMAGE_URL}${cover}` }} />
             <RightView>
               <TitleText>{title}</TitleText>
               <GrayText>作者：{author}</GrayText>
               <GrayText>分类：{`${majorCate}/${minorCate}`}</GrayText>
               <GrayText>状态：{isSerial ? '连载' : '完本'}</GrayText>
               <RatingView>
-                <Rating
-                  imageSize={15}
-                  readonly
-                  startingValue={score / 2}
-                  tintColor="#f2f2f2"
-                />
+                <Rating imageSize={15} readonly startingValue={score / 2} tintColor="#f2f2f2" />
                 <RatingText>{score}分</RatingText>
               </RatingView>
             </RightView>
@@ -160,24 +160,13 @@ const BookInfo: FC<NavRouteProps> = ({navigation, route}) => {
           </CardView>
           <CardView>
             <TitleText>目录</TitleText>
-            <ChapterView
-              onPress={() => navigation.navigate(routers.BookChapter)}>
-              <Ionicons
-                name="menu"
-                size={25}
-                color={theme.color_text_caption}
-              />
+            <ChapterView onPress={() => navigation.navigate(routers.BookChapter, params)}>
+              <Ionicons name="menu" size={25} color={theme.color_text_caption} />
               <ChapterInfo>
-                <ChapterText>
-                  最近更新：{new Date(updated).toLocaleString()}
-                </ChapterText>
+                <ChapterText>最近更新：{new Date(updated).toLocaleString()}</ChapterText>
                 <ChapterText>{lastChapter}</ChapterText>
               </ChapterInfo>
-              <Ionicons
-                name="chevron-forward"
-                size={25}
-                color={theme.color_text_caption}
-              />
+              <Ionicons name="chevron-forward" size={25} color={theme.color_text_caption} />
             </ChapterView>
           </CardView>
         </ScrollView>
