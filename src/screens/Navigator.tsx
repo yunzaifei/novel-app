@@ -1,70 +1,35 @@
 import React from 'react';
-import {NavigationContainer, Route} from '@react-navigation/native';
-import {
-  BottomTabBarOptions,
-  BottomTabNavigationOptions,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import ShelfStack from 'screens/Shelf/index';
-import StoreStack from 'screens/Store/index';
-import MineStack from 'screens/Mine/index';
-import {routers} from 'config/index';
-import {colors} from 'styles/colors';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+// config
+import {routers} from 'config/enum';
+// screens
+import TabStack from './TabStack';
+import BookInfoScreen from 'screens/Store/BookInfo';
+import ChapterScreen from 'screens/Store/Chapter';
 
-const Tab = createBottomTabNavigator();
-
-const screenOptions: (props: {
-  route: Route<string, object | undefined>;
-  navigation: any;
-}) => BottomTabNavigationOptions = ({route}) => ({
-  tabBarIcon: ({focused, size, color}) => {
-    let iconName = '';
-    switch (route.name) {
-      case routers.ShelfStack: {
-        iconName = focused ? 'book' : 'book-outline';
-        break;
-      }
-      case routers.StoreStack: {
-        iconName = focused ? 'library' : 'library-outline';
-        break;
-      }
-      case routers.MineStack: {
-        iconName = focused ? 'person' : 'person-outline';
-        break;
-      }
-    }
-    return <Ionicons name={iconName} size={size} color={color} />;
-  },
-});
-
-const tabBarOptions: BottomTabBarOptions = {
-  activeTintColor: colors.primary,
-  inactiveTintColor: 'gray',
-};
+const Stack = createStackNavigator();
 
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={screenOptions}
-        tabBarOptions={tabBarOptions}>
-        <Tab.Screen
-          name={routers.ShelfStack}
-          component={ShelfStack}
-          options={{tabBarLabel: '书架'}}
+      <Stack.Navigator>
+        <Stack.Screen
+          name={routers.HomeStack}
+          component={TabStack}
+          options={{headerShown: false}}
         />
-        <Tab.Screen
-          name={routers.StoreStack}
-          component={StoreStack}
-          options={{tabBarLabel: '书城'}}
+        <Stack.Screen
+          name={routers.BookInfo}
+          component={BookInfoScreen}
+          options={{headerTitle: '书籍详情'}}
         />
-        <Tab.Screen
-          name={routers.MineStack}
-          component={MineStack}
-          options={{tabBarLabel: '我的'}}
+        <Stack.Screen
+          name={routers.BookChapter}
+          component={ChapterScreen}
+          options={{headerTitle: '书籍目录'}}
         />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

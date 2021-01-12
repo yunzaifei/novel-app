@@ -7,23 +7,21 @@
 declare const global: {HermesInternal: null | {}};
 
 /**
- * api请求
+ * api域名
  */
-export const API_URL = '';
+export const BASE_URL = 'http://api.zhuishushenqi.com';
+
+/**
+ * 图片域名
+ */
+export const IMAGE_URL = 'http://statics.zhuishushenqi.com';
+
+/**
+ * 章节域名
+ */
+export const CHAPTER_URL = 'http://chapterup.zhuishushenqi.com';
 
 /**
  * 是否启用Hermes引擎
  */
 export const IsHermes = global.HermesInternal == null;
-
-/**
- * 路由名称列表
- */
-export enum routers {
-  ShelfStack = 'Shelf.Stack',
-  ShelfHome = 'Shelf.Home',
-  StoreStack = 'Store.Stack',
-  StoreHome = 'Store.Home',
-  MineStack = 'Mine.Stack',
-  MineHome = 'Mine.Home',
-}
