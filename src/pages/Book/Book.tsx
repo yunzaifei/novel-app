@@ -2,7 +2,7 @@
  * @Author: zhao yunfei
  * @Date: 2022-03-18 14:56:59
  * @LastEditors: zhao yunfei
- * @LastEditTime: 2022-03-22 14:48:04
+ * @LastEditTime: 2022-03-30 14:46:47
  * @Description: 描述信息
  */
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import styled from 'styled-components/native';
 import request from '@/services/request';
 import { IBook, NavProps } from '@/typings/types';
 import { dateFormat } from '@/utils';
+import { RouteEnum } from '@/utils/enum';
 
 const BookView = styled.TouchableOpacity`
   padding: 5px 10px;
@@ -38,12 +39,12 @@ const TitleText = styled.Text`
 `;
 const GrayText = styled.Text`
   font-size: 12px;
-  color: 'gray';
+  color: #888;
   margin-top: 5px;
   flex-grow: 1;
 `;
 
-const Books: FC<NavProps> = () => {
+const Books: FC<NavProps> = ({ navigation }) => {
   const [books, setBooks] = useState<Array<IBook>>([]);
   const [loading, setLoading] = useState(false);
 
@@ -69,6 +70,7 @@ const Books: FC<NavProps> = () => {
   // 渲染FlatList子组件
   const renderItem = ({ item }: { item: IBook }) => {
     const {
+      _id,
       name,
       cover,
       author,
@@ -76,7 +78,10 @@ const Books: FC<NavProps> = () => {
       source: { hostUrl },
     } = item;
     return (
-      <BookView>
+      <BookView
+        onPress={() =>
+          navigation.navigate(RouteEnum.BookRead, { bookID: _id })
+        }>
         <BookCover source={{ uri: `${hostUrl}${cover}` }} />
         <BookInfo>
           <TitleView>
@@ -93,7 +98,7 @@ const Books: FC<NavProps> = () => {
     <FlatList
       data={books}
       renderItem={renderItem}
-      keyExtractor={a => a._id}
+      keyExtractor={a => a._id as unknown as string}
       refreshing={loading}
       onRefresh={getData}
     />

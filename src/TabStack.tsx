@@ -2,8 +2,8 @@
  * @Author: zhao yunfei
  * @Date: 2022-03-18 14:43:06
  * @LastEditors: zhao yunfei
- * @LastEditTime: 2022-03-22 15:34:03
- * @Description: 描述信息
+ * @LastEditTime: 2022-03-22 15:49:59
+ * @Description: 底部堆栈
  */
 import React from 'react';
 import {
@@ -23,13 +23,12 @@ const screenOptions: (props: {
   tabBarIcon: ({ focused, color, size }) => {
     let iconName = '';
 
-    if (route.name === 'BookStack') {
+    if (route.name === RouteEnum.BookStack) {
       iconName = focused ? 'library' : 'library-outline';
-    } else if (route.name === 'MineStack') {
+    } else if (route.name === RouteEnum.MineStack) {
       iconName = focused ? 'person' : 'person-outline';
     }
 
-    // You can return any component that you like here!
     return <Ionicons name={iconName} size={size} color={color} />;
   },
   tabBarActiveTintColor: 'teal',
