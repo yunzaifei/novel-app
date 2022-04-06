@@ -2,7 +2,7 @@
  * @Author: zhao yunfei
  * @Date: 2022-03-18 14:56:59
  * @LastEditors: zhao yunfei
- * @LastEditTime: 2022-03-30 14:46:47
+ * @LastEditTime: 2022-04-02 11:45:25
  * @Description: 描述信息
  */
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -54,7 +54,6 @@ const Books: FC<NavProps> = ({ navigation }) => {
     request
       .get('/books', { params: { fields: { sections: 0 } } })
       .then(res => {
-        console.log('res', res);
         const result = res as unknown as Array<IBook>;
         setBooks(result);
       })
