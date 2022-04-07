@@ -2,7 +2,7 @@
  * @Author: zhao yunfei
  * @Date: 2022-03-22 15:32:38
  * @LastEditors: zhao yunfei
- * @LastEditTime: 2022-04-06 15:05:48
+ * @LastEditTime: 2022-04-07 11:54:12
  * @Description: 书籍阅读
  */
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
@@ -18,9 +18,9 @@ const Read: FC<NavProps> = ({ route }) => {
   const [book, setBook] = useMMKVObject<IBook>(mmkvBookKey);
   const [aIndex, setAIndex] = useState(0);
   const [read, setRead] = useState({
-    prev: '',
-    curr: '',
-    next: '',
+    prev: { title: '', content: '' },
+    curr: { title: '', content: '' },
+    next: { title: '', content: '' },
   });
   // 获取章节列表
   useEffect(() => {
@@ -53,12 +53,16 @@ const Read: FC<NavProps> = ({ route }) => {
             const res = await request.get(`/section/${item.sectionID}`);
             section = res as unknown as ISection;
             const { title, content } = section;
-            storage.set(mmkvSectionKey, JSON.stringify({ title, content }));
+            storage.set(
+              mmkvSectionKey,
+              JSON.stringify({ title, content: content.trim() }),
+            );
           }
-          return `${section.title}\r\n${section.content}`;
+          const { title, content } = section;
+          return { title, content: content.trim() };
         }
       }
-      return '';
+      return { title: '', content: '' };
     },
     [book?.sections, storage],
   );
@@ -86,6 +90,7 @@ const Read: FC<NavProps> = ({ route }) => {
         {...read}
         onScrollPrev={() => handleIndex(aIndex - 1)}
         onScrollNext={() => handleIndex(aIndex + 1)}
+        onGetNext={() => getSection(aIndex + 2)}
       />
     </Fragment>
   );
